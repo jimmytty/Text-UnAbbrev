@@ -22,7 +22,9 @@ sub BUILD {
     my $self = shift;
     my $args = shift;
 
-    my $share_dir = dist_dir(__PACKAGE__);
+    my $pkg = __PACKAGE__;
+    $pkg =~ s{::}{-}g;
+    my $share_dir = dist_dir($pkg);
     my @dict_file;
     find( sub { push @dict_file, $File::Find::name if -e }, $share_dir, );
 
