@@ -9,11 +9,11 @@ use File::Spec::Functions ();
 use IO::File;
 use Moo;
 use File::ShareDir::ProjectDistDir;
+use Unicode::CaseFold;
 
 # VERSION
 
-has share_dir => ( is => q(ro), default => sub { }, );
-has dict      => ( is => q(rw), default => sub { {}; }, );
+has dict => ( is => q(rw), default => sub { {}; }, );
 has language  => ( is => q(rw) );
 has domain    => ( is => q(rw) );
 has subdomain => ( is => q(rw) );
@@ -106,7 +106,7 @@ sub _proc_results {
 
     my @result;
     foreach my $result ( @{$results} ) {
-        if ( $mode ~~ q(with_origin) ) {
+        if ( defined $mode && $mode eq q(with_origin) ) {
             push @result, { $result => $origin };
         }
         else {
