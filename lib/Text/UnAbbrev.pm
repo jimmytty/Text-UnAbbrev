@@ -26,7 +26,7 @@ sub BUILD {
     $pkg =~ s{::}{-}g;
     my $share_dir = dist_dir($pkg);
     my @dict_file;
-    find( sub { push @dict_file, $File::Find::name if -e }, $share_dir, );
+    find( sub { push @dict_file, $File::Find::name if -f }, $share_dir, );
 
     while ( my $dict_file = shift @dict_file ) {
         $self->_load_dict($dict_file);
